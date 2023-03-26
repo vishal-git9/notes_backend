@@ -5,17 +5,7 @@ const authRouter = require("./Routes/user.routes")
 const notesRouter = require("./Routes/note.routes")
 const cors = require("cors")
 const app = express()
-const corsOptions = {
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error("Not allowed by CORS"))
-      }
-    },
-    credentials: true,
-  }
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(express.json())
 app.use("/auth",authRouter)
