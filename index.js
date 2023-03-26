@@ -3,8 +3,9 @@ const connection = require("./config/db")
 const authChecker = require("./Middlewares/Auth.middleware")
 const authRouter = require("./Routes/user.routes")
 const notesRouter = require("./Routes/note.routes")
-
+const cors = require("cors")
 const app = express()
+app.use(cors())
 
 app.use(express.json())
 app.use("/auth",authRouter)
