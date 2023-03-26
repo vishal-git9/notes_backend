@@ -17,6 +17,20 @@ notesRouter.get("/",async(req,res)=>{
         res.status(400).send({msg:"error while fetching the notes data",error})
     }
 })
+notesRouter.get("/:id",async(req,res)=>{
+    const token  = req.headers.authorization
+    const {id} = req.params
+    const {userId} = jwt.verify(token,"user")
+    const notesData = await notesModel.findOne({_id:id})
+    const userId_in_note = notesData.userId
+    try {
+        if(userId===userId_in_note){
+            res.status(200).send({msg:"all notes",data:notesData})
+        }
+    } catch (error) {
+        res.status(400).send({msg:"error while fetching the notes data",error})
+    }
+})
 
 notesRouter.post("/addnotes",async(req,res)=>{
     try {
